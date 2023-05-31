@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">C Programming Club</string>
+    <string name="home">Home</string>
+    <string name="make_notes">Make Notes</string>
+    <string name="claim_certificate">Claim Certificate</string>
+    <string name="developer">Developer</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="about">About</string>
+    <string name="logout">LogOut</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="add_note">Add Note</string>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
+    <string name="mark_as_completed">Mark as Completed</string>
+    <string name="submit">Submit</string>
+</resources>
