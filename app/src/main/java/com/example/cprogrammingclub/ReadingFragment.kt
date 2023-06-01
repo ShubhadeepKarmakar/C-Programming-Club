@@ -1,14 +1,13 @@
-package com.example.cprogrammingclub.compiler
+package com.example.cprogrammingclub
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.cprogrammingclub.R
 
 
-class CompilerFragment : Fragment() {
+class ReadingFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -16,7 +15,8 @@ class CompilerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compiler, container, false)
+        return inflater.inflate(R.layout.fragment_reading, container, false)
     }
+
 
 }

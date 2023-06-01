@@ -66,7 +66,7 @@ class CrudNoteActivity : AppCompatActivity() {
             val description = binding.etDescription.text.toString()
             val noteRequestModel =
 //                NoteRequestModel(title, description, appPreference.getSharedPerferences()!!)
-                NoteRequestModel(title, description, "appPreference.getSharedPerferences()!!")
+                NoteRequestModel(title, description, "a@gmail.com")
             if (note == null) {
                 notesViewModel.createNote(noteRequestModel)
             } else {

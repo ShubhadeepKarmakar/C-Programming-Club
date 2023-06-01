@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".QuizeFragment">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp">
+    <TextView
+        android:id="@+id/chapterName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:text="Chapter Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/questionNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Question  /  "
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chapterName" />
+
+    <ImageView
+        android:id="@+id/dashedLine"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/dashed_line"
+        app:layout_constraintTop_toBottomOf="@id/questionNumber"
+        android:layerType="software" />
+
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        tools:text="Question"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/rbOptionsGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dashedLine" />
+
+    <RadioGroup
+        android:id="@+id/rbOptionsGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <RadioButton
+            android:id="@+id/option1"
+            style="@style/optionRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Option 1"
+            tools:layout_editor_absoluteX="116dp"
+            tools:layout_editor_absoluteY="75dp" />
+
+        <RadioButton
+            android:id="@+id/option2"
+            style="@style/optionRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Option 2" />
+
+        <RadioButton
+            android:id="@+id/option3"
+            style="@style/optionRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Option 3" />
+
+        <RadioButton
+            android:id="@+id/option4"
+            style="@style/optionRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Option 4" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnNext"
+        style="@style/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Next"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

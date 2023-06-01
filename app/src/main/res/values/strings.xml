@@ -16,4 +16,5 @@
     <string name="drawer_close">drawer close</string>
     <string name="mark_as_completed">Mark as Completed</string>
     <string name="submit">Submit</string>
+    <string name="percent_sign">%</string>
 </resources>
