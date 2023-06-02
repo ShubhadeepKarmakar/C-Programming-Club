@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/purple_200"
+    android:background="#ECECEC"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Chapter Name"
-        android:textColor="#000"
+        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"/>
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start Reading"
-        android:textColor="#000"
+        android:textColor="@color/black"
         android:textSize="18sp" />
 
     <View
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Chapter Wise Preblems"
-        android:textColor="#000"
+        android:textColor="@color/black"
         android:textSize="13sp" />
     <View
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="Chapter Wise Quiz"
-        android:textColor="#000"
+        android:textColor="@color/black"
         android:textSize="13sp" />
 
 </LinearLayout>

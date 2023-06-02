@@ -12,14 +12,15 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark_green"
+            android:background="@color/white"
+            android:paddingStart="75dp"
             android:elevation="4dp"
             app:title="C Programming Club"
-            app:titleTextColor="@color/white"
+            app:titleTextColor="@color/dark_green"
             app:subtitle="Start your programming journy"
             app:subtitleTextColor="#B8B8B8"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            android:titleTextColor="@color/dark_green"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +40,7 @@
                     android:elevation="5dp"
                     android:textStyle="bold"
                     android:text="0%"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="8sp" />
 
                 <ProgressBar

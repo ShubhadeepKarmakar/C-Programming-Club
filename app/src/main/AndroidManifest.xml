@@ -10,17 +10,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/NoActionBar"
+        android:theme="@style/Theme.CProgrammingClub"
         tools:targetApi="31">
-        <activity
-            android:name=".learning.reading.ReadingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".learning.problems.ProblemsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".learning.quiz.QuizActivity"
-            android:exported="false" />
+
         <activity
             android:name=".notes.CrudNoteActivity"
             android:exported="false" />

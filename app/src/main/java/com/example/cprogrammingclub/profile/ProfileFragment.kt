@@ -1,4 +1,4 @@
-package com.example.cprogrammingclub
+package com.example.cprogrammingclub.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

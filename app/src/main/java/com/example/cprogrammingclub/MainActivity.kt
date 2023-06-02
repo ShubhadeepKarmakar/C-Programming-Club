@@ -25,6 +25,7 @@ import com.example.cprogrammingclub.club.ClubFragment
 import com.example.cprogrammingclub.databinding.ActivityMainBinding
 import com.example.cprogrammingclub.learning.HomeFragment
 import com.example.cprogrammingclub.notes.NotesActivity
+import com.example.cprogrammingclub.profile.ProfileFragment
 import com.example.cprogrammingclub.progressbar.ProgressViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -89,12 +90,14 @@ class MainActivity : AppCompatActivity(){
             .commit()
     }
 
-    fun hideBottomNavigationBar() {
+    fun hideBottomNavAndToolBar() {
         binding.bottomNav.visibility = View.GONE
+        binding.toolbar.visibility=View.GONE
     }
 
-    fun showBottomNavigationBar() {
+    fun showBottomNavAndToolBar() {
         binding.bottomNav.visibility = View.VISIBLE
+        binding.toolbar.visibility = View.VISIBLE
     }
 
     private val getResult =

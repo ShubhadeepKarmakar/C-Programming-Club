@@ -3,12 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReadingFragment">
+    tools:context=".learning.reading.ReadingFragment">
 
-    
+
+
     <TextView
+        android:id="@+id/chapterName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Chapter Name"
+        android:textStyle="bold"
+        android:textSize="17sp"
+ />
+
+    <Button
+        android:id="@+id/btnCompleted"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginBottom="44dp"
+        android:text="@string/mark_as_completed"
+        android:textSize="12sp"
+      android:layout_gravity="center"/>
 
 </FrameLayout>

@@ -1,23 +1,20 @@
 package com.example.cprogrammingclub.learning
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.cprogrammingclub.*
 import com.example.cprogrammingclub.databinding.FragmentHomeBinding
-import com.example.cprogrammingclub.learning.problems.ProblemsActivity
-import com.example.cprogrammingclub.learning.quiz.QuizActivity
-import com.example.cprogrammingclub.learning.reading.ReadingActivity
+import com.example.cprogrammingclub.learning.problems.ProblemsFragment
+import com.example.cprogrammingclub.learning.quiz.QuizFragment
+import com.example.cprogrammingclub.learning.reading.ReadingFragment
 import com.example.cprogrammingclub.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -49,10 +46,26 @@ class HomeFragment : Fragment() {
         homeFragmentViewModel.getAllChapters()
 
         chapterObserver()
+
+        val fragmentManager = requireActivity().supportFragmentManager // or childFragmentManager if inside a Fragment
+        fragmentManager.addOnBackStackChangedListener {
+            val backStackEntryCount = fragmentManager.backStackEntryCount
+            val parentActivity = requireActivity() as MainActivity
+            if (backStackEntryCount > 0) {
+                // Fragment(s) in the back stack
+                // Perform tasks specific to returning from one fragment to the previous fragment
+                // For example, update UI or refresh data
+                parentActivity.hideBottomNavAndToolBar()//to hide the bottomNavigationBar
+            } else {
+                // No fragments in the back stack, i.e., the first fragment
+                // Perform tasks specific to the initial fragment state
+                parentActivity.showBottomNavAndToolBar()//to show the bottomNavigationBar
+            }
+        }
+
     }
 
     private fun chapterObserver() {
-
         homeFragmentViewModel.chaptersLiveData.observe(viewLifecycleOwner, Observer {
             binding.progressBar.isVisible = false
             when (it) {
@@ -69,7 +82,6 @@ class HomeFragment : Fragment() {
         })
     }
 
-
     private fun onReadingClicked(chapterModel: ChapterModel) {
         transferData(ReadingFragment(), chapterModel)
     }
@@ -79,8 +91,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onChapterQuizClicked(chapterModel: ChapterModel) {
-        transferData(QuizeFragment(), chapterModel)
-
+        transferData(QuizFragment(), chapterModel)
     }
 
     private fun transferData(fragment: Fragment, chapterModel: ChapterModel) {
@@ -88,16 +99,12 @@ class HomeFragment : Fragment() {
         bundle.putString("chapterName", chapterModel.chapterName)
         fragment.arguments = bundle
         replaceFragment(fragment)
-
     }
 
     private fun replaceFragment(fragment: Fragment) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment).addToBackStack(null)
             .commit()
-
-        val parentActivity = requireActivity() as MainActivity
-        parentActivity.hideBottomNavigationBar()//to hide the bottomNavigationBar
     }
 
     override fun onDestroyView() {

@@ -44,14 +44,12 @@ class ProgressViewModel @Inject constructor(private val databases: Databases) : 
                     documentId = progressModel.pId,
                     data = Gson().toJson(progressModel)
                 )
-                Log.d(ContentValues.TAG, "Progress Created..........")
                 delay(1000)
             } catch (e: Exception) {
                 Log.e("Appwrite(createProgress)", "Error: " + e.message)
             }
         }
     }
-
 
     fun getProgress() {
         viewModelScope.launch {
@@ -73,8 +71,6 @@ class ProgressViewModel @Inject constructor(private val databases: Databases) : 
                         pId = it.data["\$id"] as String
                     )
                 }
-                Log.e("Appwrite(getProgress--->)", progress.toString())
-
 
                 var progressPercentage = 0
                 for (i in progress) {
@@ -99,7 +95,6 @@ class ProgressViewModel @Inject constructor(private val databases: Databases) : 
                     documentId = pId,
                     data = progressModel
                 )
-                Log.d(ContentValues.TAG, "Progress Updated..........")
             } catch (e: Exception) {
                 Log.e("Appwrite(updateProgress)", "Error: " + e.message)
             }
