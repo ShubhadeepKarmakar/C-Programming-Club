@@ -39,8 +39,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
@@ -49,6 +47,10 @@ dependencies {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
     }
+    
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
