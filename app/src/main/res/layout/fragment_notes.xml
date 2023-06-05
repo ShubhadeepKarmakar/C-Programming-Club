@@ -50,7 +50,7 @@
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        app:backgroundTint="@color/light_gray"
+        app:backgroundTint="#FFCC12"
         android:id="@+id/btnAddNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
         android:layout_margin="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_add_note" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

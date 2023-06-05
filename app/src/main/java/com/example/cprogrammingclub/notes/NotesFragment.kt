@@ -1,22 +1,20 @@
 package com.example.cprogrammingclub.notes
 
-import android.app.Activity
-import android.content.Intent
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.cprogrammingclub.MainActivity
 import com.example.cprogrammingclub.R
-import com.example.cprogrammingclub.databinding.FragmentClubBinding
 import com.example.cprogrammingclub.databinding.FragmentNotesBinding
-import com.example.cprogrammingclub.learning.HomeFragmentViewModel
 import com.example.cprogrammingclub.utils.NetworkResult
 import com.example.usertodatabase.models.NoteResponseModel
 import com.example.usertodatabase.ui.notes.NotesAdapter
@@ -36,27 +34,26 @@ class NotesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       _binding=FragmentNotesBinding.inflate(inflater,container,false)
-
+        _binding = FragmentNotesBinding.inflate(inflater, container, false)
+        adapter = NotesAdapter(::onNoteClicked)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = NotesAdapter(::onNoteClicked)
 
-        notesViewModel.getAllNotes(requireContext())
-        binding.notesList.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        notesViewModel.getAllNotes()
+        binding.notesList.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.notesList.adapter = adapter
 
         binding.btnAddNote.setOnClickListener {
-            val intent = Intent(requireContext(), CrudNoteActivity::class.java)
-            startActivity(intent)
+            replaceFragment(CrudFragment())
         }
         NotesObserver()
-
-
+//        backStackHandling()
     }
+
     private fun NotesObserver() {
         notesViewModel.notesLiveData.observe(viewLifecycleOwner, Observer {
 
@@ -66,7 +63,8 @@ class NotesFragment : Fragment() {
                     adapter.submitList(it.data)
                 }
                 is NetworkResult.Error -> {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
+                        .show()
                 }
                 is NetworkResult.Loading -> {
                     binding.progressBar.isVisible = true
@@ -75,24 +73,21 @@ class NotesFragment : Fragment() {
         })
     }
 
-    private fun onNoteClicked(noteResponseModel: NoteResponseModel) {
+    private fun onNoteClicked(noteResponseodel: NoteResponseModel) {
         val bundle = Bundle()
-        bundle.putString("note", Gson().toJson(noteResponseModel))
-        val intent = Intent(requireContext(), CrudNoteActivity::class.java)
-        intent.putExtras(bundle)
-//        getResult.launch(intent)
+        val fragment = CrudFragment()
+        bundle.putString("note", Gson().toJson(noteResponseodel))
+        fragment.arguments = bundle
+        Log.d("onNoteClicked", "Lala La Lala")
+        replaceFragment(fragment)
     }
 
-//    private val getResult =
-//        registerForActivityResult(
-//            ActivityResultContracts.StartActivityForResult()
-//        ) {
-//            if (it.resultCode == Activity.RESULT_OK) {
-//                val mIntent = intent
-//                finish()
-//                startActivity(mIntent)
-//            }
-//        }
+    private fun replaceFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

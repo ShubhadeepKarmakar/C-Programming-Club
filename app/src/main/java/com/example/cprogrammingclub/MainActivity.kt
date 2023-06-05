@@ -11,7 +11,6 @@ This activity is used as a fragment container(Home Fragment, Compiler Fragment, 
 package com.example.cprogrammingclub
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,7 +23,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cprogrammingclub.club.ClubFragment
 import com.example.cprogrammingclub.databinding.ActivityMainBinding
 import com.example.cprogrammingclub.learning.HomeFragment
-import com.example.cprogrammingclub.notes.NotesActivity
+import com.example.cprogrammingclub.notes.NotesFragment
 import com.example.cprogrammingclub.profile.ProfileFragment
 import com.example.cprogrammingclub.progressbar.ProgressViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,8 +54,7 @@ class MainActivity : AppCompatActivity(){
                     replaceFragment(HomeFragment())
                 }
                 R.id.bnav_make_notes -> {
-                    intent= Intent(this,NotesActivity::class.java)
-                    getResult.launch(intent)
+                   replaceFragment(NotesFragment())
                 }
                 R.id.bnav_club -> {
                     replaceFragment(ClubFragment())

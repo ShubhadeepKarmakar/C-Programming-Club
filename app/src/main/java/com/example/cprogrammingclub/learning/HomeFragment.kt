@@ -46,23 +46,23 @@ class HomeFragment : Fragment() {
         homeFragmentViewModel.getAllChapters()
 
         chapterObserver()
+backStackHandling()
 
+    }
+
+    private fun backStackHandling() {
         val fragmentManager = requireActivity().supportFragmentManager // or childFragmentManager if inside a Fragment
         fragmentManager.addOnBackStackChangedListener {
             val backStackEntryCount = fragmentManager.backStackEntryCount
             val parentActivity = requireActivity() as MainActivity
             if (backStackEntryCount > 0) {
                 // Fragment(s) in the back stack
-                // Perform tasks specific to returning from one fragment to the previous fragment
-                // For example, update UI or refresh data
                 parentActivity.hideBottomNavAndToolBar()//to hide the bottomNavigationBar
             } else {
                 // No fragments in the back stack, i.e., the first fragment
-                // Perform tasks specific to the initial fragment state
                 parentActivity.showBottomNavAndToolBar()//to show the bottomNavigationBar
             }
         }
-
     }
 
     private fun chapterObserver() {

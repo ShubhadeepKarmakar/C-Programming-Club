@@ -31,8 +31,8 @@ class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
         val title = view.findViewById<TextView>(R.id.title)
         val desc = view.findViewById<TextView>(R.id.desc)
         fun bind(item: NoteResponseModel) {
-            title.text = item.TITLE
-            desc.text = item.DESCRIPTION
+            title.text = item.title
+            desc.text = item.description
 
         }
     }

@@ -5,7 +5,7 @@ object Constants {
     val PROJECT_ID = "6471de03ca574fbc5c8d"
     val DATABASE_ID = "6471de17436cef3e65cd"
     val USER_COLLECTION_ID = "646acb713dd758f93951"
-    val NOTES_COLLECTION_ID = "646dee91f37b91baebfa"
+    val NOTES_COLLECTION_ID = "647d537c96ba74273616"
     val PROGRESS_COLLECTION_ID = "64787ee9113d3f84ca5a"
     val GROUP_CHAT_COLLECTION_ID = "647cde815588fdcf96f5"
 

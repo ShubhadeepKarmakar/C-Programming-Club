@@ -27,14 +27,15 @@ class ClubFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentClubBinding.inflate(inflater, container, false)
-
+        adapter = ClubAdapter()
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         clubFragmentViewModel.getMessages()
 
-        adapter = ClubAdapter()
+
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -56,11 +57,13 @@ class ClubFragment : Fragment() {
     }
 
     private fun messageObserver() {
-        clubFragmentViewModel.messagesLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            adapter.submitList(it)
+        clubFragmentViewModel.messagesLiveData.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                adapter.submitList(it)
 
-            scrollToLastPosition()
-        })
+                scrollToLastPosition()
+            })
     }
 
     private fun scrollToLastPosition() {

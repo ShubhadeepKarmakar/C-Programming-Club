@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".notes.CrudNoteActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".notes.CrudFragment">
+
     <TextView
-        android:id="@+id/tvActivityName"
+        android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -27,7 +28,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginRight="16dp"
         android:src="@drawable/ic_delete"
-        app:layout_constraintEnd_toEndOf="@+id/tvActivityName"
+        app:layout_constraintEnd_toEndOf="@+id/heading"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/black" />
 
@@ -41,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvActivityName">
+        app:layout_constraintTop_toBottomOf="@+id/heading">
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,13 +54,13 @@
             android:textSize="12sp" />
 
         <EditText
-            android:id="@+id/etTitle"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/sf_pro_display_semibold"
-            android:hint="Title..................."
+            android:hint="Title"
             android:textColor="@color/black"
             android:textColorHint="@color/light_gray"
             android:textSize="16sp" />
@@ -80,14 +81,14 @@
             android:textSize="12sp" />
 
         <EditText
-            android:id="@+id/etDescription"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:background="@android:color/transparent"
             android:fontFamily="@font/sf_pro_display_semibold"
             android:gravity="top|start"
-            android:hint="Description......................."
+            android:hint="Description"
             android:inputType="textMultiLine"
             android:lines="10"
             android:scrollHorizontally="false"
@@ -110,10 +111,11 @@
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/sf_pro_display_bold"
-            android:text="SUBMIT"
+            android:text="Submit"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

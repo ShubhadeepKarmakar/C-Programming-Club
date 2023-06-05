@@ -26,9 +26,9 @@ class NotesViewModel @Inject constructor(private val notesRepository: NotesRepos
         }
     }
 
-    fun getAllNotes(context: Context) {
+    fun getAllNotes() {
         viewModelScope.launch {
-            notesRepository.getNotes(context)
+            notesRepository.getNotes()
         }
     }
 
