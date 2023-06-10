@@ -15,6 +15,8 @@ import com.example.cprogrammingclub.databinding.FragmentHomeBinding
 import com.example.cprogrammingclub.learning.problems.ProblemsFragment
 import com.example.cprogrammingclub.learning.quiz.QuizFragment
 import com.example.cprogrammingclub.learning.reading.ReadingFragment
+import com.example.cprogrammingclub.progressbar.ProgressViewModel
+import com.example.cprogrammingclub.progressbar.model.ProgressModel
 import com.example.cprogrammingclub.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,8 +25,12 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ChapterAdapter
+    private var progressStatus: List<ProgressModel>? = null
 
+    private lateinit var parentActivity: MainActivity
     private val homeFragmentViewModel by activityViewModels<HomeFragmentViewModel>()
+    private val progressViewModel by activityViewModels<ProgressViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -37,24 +43,38 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = ChapterAdapter(
-            ::onChapterProblemsClicked, ::onChapterQuizClicked, ::onReadingClicked
+            ::onChapterProblemsClicked,
+            ::onChapterQuizClicked,
+            ::onReadingClicked,
+            requireActivity()
         )
         binding.chapterList.layoutManager =
             StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         binding.chapterList.adapter = adapter
 
         homeFragmentViewModel.getAllChapters()
+        progressViewModel.getProgress()
 
+        progressModelListLiveDataObserver()
         chapterObserver()
-backStackHandling()
+
+        backStackHandling()
 
     }
 
-    private fun backStackHandling() {
-        val fragmentManager = requireActivity().supportFragmentManager // or childFragmentManager if inside a Fragment
+    private fun progressModelListLiveDataObserver() {
+
+        progressViewModel.progressModelListLiveData.observe(viewLifecycleOwner, Observer {
+            adapter.progressStatus=it
+        })
+    }
+
+    fun backStackHandling() {
+        val fragmentManager =
+            requireActivity().supportFragmentManager // or childFragmentManager if inside a Fragment
         fragmentManager.addOnBackStackChangedListener {
             val backStackEntryCount = fragmentManager.backStackEntryCount
-            val parentActivity = requireActivity() as MainActivity
+            parentActivity = requireActivity() as MainActivity
             if (backStackEntryCount > 0) {
                 // Fragment(s) in the back stack
                 parentActivity.hideBottomNavAndToolBar()//to hide the bottomNavigationBar

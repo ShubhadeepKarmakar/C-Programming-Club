@@ -7,18 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.cprogrammingclub.MainActivity
 import com.example.cprogrammingclub.databinding.FragmentHomeBinding
 import com.example.cprogrammingclub.databinding.FragmentProfileBinding
 import com.example.cprogrammingclub.learning.HomeFragmentViewModel
 import com.example.cprogrammingclub.progressbar.ProgressViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding?=null
     private val binding get() = _binding!!
-
-
-
 
     private val progressViewModel by activityViewModels<ProgressViewModel>()
     override fun onCreateView(
@@ -26,7 +25,8 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
-
+        val parentActivity = requireActivity() as MainActivity
+        parentActivity.hideBottomNavAndToolBar()
         return binding.root
     }
 
@@ -47,5 +47,7 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        val parentActivity = requireActivity() as MainActivity
+        parentActivity.showBottomNavAndToolBar()
     }
 }

@@ -10,12 +10,9 @@ This activity is used as a fragment container(Home Fragment, Compiler Fragment, 
 
 package com.example.cprogrammingclub
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,23 +20,26 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cprogrammingclub.club.ClubFragment
 import com.example.cprogrammingclub.databinding.ActivityMainBinding
 import com.example.cprogrammingclub.learning.HomeFragment
+import com.example.cprogrammingclub.more.MoreFragment
 import com.example.cprogrammingclub.notes.NotesFragment
 import com.example.cprogrammingclub.profile.ProfileFragment
 import com.example.cprogrammingclub.progressbar.ProgressViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var progressViewModel: ProgressViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        progressViewModel= ViewModelProvider(this)[ProgressViewModel::class.java]
+        progressViewModel = ViewModelProvider(this)[ProgressViewModel::class.java]
         progressViewModel.initializeProgress()//Check Point
         progressViewModel.getProgress()//Check Point
         progressObserver()
@@ -53,14 +53,20 @@ class MainActivity : AppCompatActivity(){
                 R.id.bnav_home -> {
                     replaceFragment(HomeFragment())
                 }
+                R.id.bnav_more -> {
+                    replaceFragment(MoreFragment())
+                }
                 R.id.bnav_make_notes -> {
-                   replaceFragment(NotesFragment())
+                    replaceFragment(NotesFragment())
                 }
                 R.id.bnav_club -> {
                     replaceFragment(ClubFragment())
                 }
                 R.id.bnav_profile -> {
-                    replaceFragment(ProfileFragment())
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left)
+                        .replace(R.id.fragmentContainer, ProfileFragment())
+                        .commit()
                 }
             }
             true
@@ -68,13 +74,16 @@ class MainActivity : AppCompatActivity(){
         // Set the home fragment as the default fragment
         replaceFragment(HomeFragment())
 
+
     }
+
     private fun progressObserver() {
         progressViewModel.progressLiveData.observe(this, Observer {
-            binding.progressBarPercent.progress= it
-            binding.progressPercent.text= "$it%"
+            binding.progressBarPercent.progress = it
+            binding.progressPercent.text = "$it%"
         })
     }
+
     private fun progressModelListLiveDataObserver() {
         progressViewModel.progressModelListLiveData.observe(this, Observer {
             val s = it.toString()
@@ -90,7 +99,7 @@ class MainActivity : AppCompatActivity(){
 
     fun hideBottomNavAndToolBar() {
         binding.bottomNav.visibility = View.GONE
-        binding.toolbar.visibility=View.GONE
+        binding.toolbar.visibility = View.GONE
     }
 
     fun showBottomNavAndToolBar() {
@@ -98,15 +107,22 @@ class MainActivity : AppCompatActivity(){
         binding.toolbar.visibility = View.VISIBLE
     }
 
-    private val getResult =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.CONTEXT_INCLUDE_CODE) {
-                val mIntent = intent
+    override fun onBackPressed() {
+        if (binding.bottomNav.selectedItemId != R.id.bnav_home) {
+            binding.bottomNav.selectedItemId = R.id.bnav_home
+        } else {
+            val f = this.supportFragmentManager
+            if (f.backStackEntryCount > 0)
+                        {
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.fragmentContainer, HomeFragment()).addToBackStack(null)
+//                    .commit()
+
+                f.popBackStack()
+            } else {
+
                 finish()
-                startActivity(mIntent)
-                Toast.makeText(this, "///////////////////////////", Toast.LENGTH_SHORT).show()
             }
         }
+    }
 }

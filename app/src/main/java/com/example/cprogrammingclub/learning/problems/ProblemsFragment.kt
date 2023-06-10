@@ -24,7 +24,7 @@ class ProblemsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val data = arguments?.getString("chapterName").toString()
-        binding.chapterName.text = data
+//        binding.chapterName.text = data
 
     }
 

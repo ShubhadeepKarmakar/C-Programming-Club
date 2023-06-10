@@ -1,5 +1,6 @@
 package com.example.usertodatabase.ui.notes
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cprogrammingclub.R
 import com.example.usertodatabase.models.NoteResponseModel
+private val itemColors = arrayOf("#FF0000", "#00FF00", "#0000FF")
 
 class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
     ListAdapter<NoteResponseModel, NotesAdapter.NotesViewHolder>(Diffutil()) {
@@ -22,6 +24,8 @@ class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+        val color = itemColors[position % itemColors.size]//For multiple item background
+        holder.itemView.setBackgroundColor(Color.parseColor(color))
         holder.itemView.setOnClickListener {
             onNoteClicked(item)
         }

@@ -17,4 +17,9 @@
     <string name="mark_as_completed">Mark as Completed</string>
     <string name="submit">Submit</string>
     <string name="percent_sign">%</string>
+    <string name="forget_password"><u>Forget Password?</u></string>
+    <string name="privacy_policy">By creating this account, you agree to our <u><font fgcolor="#122C8C">Privacy Policy</font></u></string>
+    <string name="dont_have_and_account">Don\'t have an account? <u><font fgcolor="#122C8C">Sign Up</font></u></string>
+    <string name="i_agree_to_the_privacy_policy">I agree to the <u><font fgcolor="#122C8C">Privacy Policy</font></u></string>
+    <string name="already_have_an_account_login">Already have an account? <font fgcolor="#122C8C">Login</font></string>
 </resources>

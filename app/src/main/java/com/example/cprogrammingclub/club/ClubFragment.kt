@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cprogrammingclub.MainActivity
 import com.example.cprogrammingclub.databinding.FragmentClubBinding
 import com.example.usertodatabase.utils.Constants
 import com.example.whatsapp.chat.MessageRequestModel
@@ -28,6 +29,8 @@ class ClubFragment : Fragment() {
     ): View? {
         _binding = FragmentClubBinding.inflate(inflater, container, false)
         adapter = ClubAdapter()
+        val parentActivity = requireActivity() as MainActivity
+        parentActivity.hideBottomNavAndToolBar()
         return binding.root
     }
 
@@ -79,5 +82,7 @@ class ClubFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        val parentActivity = requireActivity() as MainActivity
+        parentActivity.showBottomNavAndToolBar()
     }
 }

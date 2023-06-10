@@ -16,7 +16,7 @@
         android:layout_height="50dp"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/app_color"
         android:gravity="center"
         android:text="Chapter Name"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,8 +103,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/sf_pro_display_bold"
         android:text="Next"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

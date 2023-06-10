@@ -13,15 +13,26 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.cprogrammingclub.R
 import com.example.cprogrammingclub.databinding.FragmentQuizBinding
+import com.example.cprogrammingclub.progressbar.ProgressViewModel
+import com.example.cprogrammingclub.progressbar.model.ProgressModel
 import com.example.learningapp.quiz.QuizModel
 import com.example.learningapp.quiz.QuizViewModel
+import com.example.usertodatabase.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class QuizFragment : Fragment() {
     private var _binding: FragmentQuizBinding? = null
     private val binding get() = _binding!!
 
+    lateinit var chapterName: String
+
+    private var pId: String? = null
+    private var cProgress = 0
+    private var qProgress = 0
+
     private val quizFragmentViewModel by activityViewModels<QuizViewModel>()
+    private val progressViewModel by activityViewModels<ProgressViewModel>()
 
     private var currentQuestion: QuizModel? = null
 
@@ -37,10 +48,11 @@ class QuizFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val cName = arguments?.getString("chapterName").toString()
-        binding.chapterName.text = cName
+        chapterName = arguments?.getString("chapterName").toString()
+        binding.chapterName.text = chapterName
 
-        quizFragmentViewModel.getQuestions(cName)
+        quizFragmentViewModel.getQuestions(chapterName)
+        progressModelListLiveDataObserver(chapterName)
 
         quizFragmentViewModel.questionsLiveData.observe(viewLifecycleOwner, Observer { questions ->
             if (questions != null) {
@@ -92,12 +104,55 @@ class QuizFragment : Fragment() {
             alertDialog.setMessage("Score: ${quizFragmentViewModel.correctLiveData.value!!} / ${quizFragmentViewModel.questionsLiveData.value!!.size}")
             alertDialog.setNeutralButton("Done", DialogInterface.OnClickListener { _, _ ->
 
+                if (qProgress == 0) {
+                    progressViewModel.updateProgress(
+                        pId!!,
+                        ProgressModel(
+                            Constants.CURRENT_USER_EMAIL,
+                            chapterName,
+                            cProgress = cProgress,
+                            qProgress = 5,
+                            pId!!
+                        )
+                    )
+                }
+
                 requireActivity().supportFragmentManager.popBackStack() //To go back to the previous fragment by clearing the back stack
+
             })
             alertDialog.show()
         } else {
             quizFragmentViewModel.selectedQuestionLiveData.postValue(quizFragmentViewModel.selectedQuestionLiveData.value?.inc())
         }
+    }
+
+    private fun progressModelListLiveDataObserver(chapterName: String) {
+
+        progressViewModel.progressModelListLiveData.observe(viewLifecycleOwner, Observer {
+
+            for (i in it) {
+                if (i.chapterName == chapterName) {
+                    pId = i.pId
+                    cProgress = i.cProgress
+                    qProgress = i.qProgress
+
+                    if (qProgress > 0) {
+
+                        val alertDialog = AlertDialog.Builder(requireContext())
+                        alertDialog.setTitle("Already Completed")
+                        alertDialog.setMessage("Thank you")
+                        alertDialog.setNeutralButton(
+                            "Back to previous section",
+                            DialogInterface.OnClickListener { _, _ ->
+                                requireActivity().supportFragmentManager.popBackStack() //To go back to the previous fragment by clearing the back stack
+                            })
+                        // Prevent dialog from being closed when clicking outside
+                        alertDialog.setCancelable(false)
+                        alertDialog.show()
+                    }
+                }
+            }
+        })
     }
 
     override fun onDestroy() {

@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.cprogrammingclub.MainActivity
 import com.example.cprogrammingclub.R
 import com.example.cprogrammingclub.databinding.FragmentCrudBinding
 import com.example.cprogrammingclub.utils.NetworkResult
@@ -32,7 +33,8 @@ private var _binding:FragmentCrudBinding?=null
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCrudBinding.inflate(inflater, container, false)
-
+        val parentActivity = requireActivity() as MainActivity
+        parentActivity.hideBottomNavAndToolBar()
         return binding.root
     }
 
@@ -99,5 +101,7 @@ private var _binding:FragmentCrudBinding?=null
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        val parentActivity = requireActivity() as MainActivity
+        parentActivity.showBottomNavAndToolBar()
     }
 }

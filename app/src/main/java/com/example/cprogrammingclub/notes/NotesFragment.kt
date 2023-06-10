@@ -27,6 +27,8 @@ class NotesFragment : Fragment() {
     private var _binding: FragmentNotesBinding? = null
     private val binding get() = _binding!!
 
+
+
     private lateinit var adapter: NotesAdapter
     private val notesViewModel by activityViewModels<NotesViewModel>()
 
@@ -36,6 +38,8 @@ class NotesFragment : Fragment() {
     ): View? {
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
         adapter = NotesAdapter(::onNoteClicked)
+        val parentActivity = requireActivity() as MainActivity
+        parentActivity.hideBottomNavAndToolBar()
         return binding.root
     }
 
@@ -91,5 +95,8 @@ class NotesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        //To show the bottom nav and toolbar when the fragment will destroy
+        (requireActivity() as MainActivity).showBottomNavAndToolBar()
+
     }
 }

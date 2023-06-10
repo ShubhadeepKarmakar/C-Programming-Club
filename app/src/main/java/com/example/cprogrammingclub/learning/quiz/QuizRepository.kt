@@ -35,6 +35,8 @@ class QuizRepository @Inject constructor(private val databases: Databases) {
             _questions.postValue(questions)
         } catch (e: AppwriteException) {
             Log.e("Get questions", e.message.toString())
+        }catch (e:Exception){
+            Log.e("QuizException", e.message.toString())
         }
     }
 }

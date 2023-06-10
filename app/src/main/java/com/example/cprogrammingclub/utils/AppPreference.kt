@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class AppPreference@Inject constructor(@ApplicationContext context: Context) {
+class AppPreference @Inject constructor(@ApplicationContext context: Context) {
 private var sharedPreference=context.getSharedPreferences("login",Context.MODE_PRIVATE)
 
     fun setSharedPerferences(email:String){

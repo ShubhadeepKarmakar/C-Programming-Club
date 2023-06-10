@@ -30,7 +30,7 @@ class ProgressViewModel @Inject constructor(private val databases: Databases) : 
 
     fun initializeProgress() {
         for (i in chapterList) {
-            val progressModel = ProgressModel("a@gmail.com", i, 0, 0, ID.unique())
+            val progressModel = ProgressModel(Constants.CURRENT_USER_EMAIL, i, 0, 0, ID.unique())
             createProgress(progressModel)
         }
     }
@@ -58,7 +58,7 @@ class ProgressViewModel @Inject constructor(private val databases: Databases) : 
                     databaseId = Constants.DATABASE_ID,
                     collectionId = Constants.PROGRESS_COLLECTION_ID,
                     queries = listOf(
-                        Query.equal("emailId", "a@gmail.com")
+                        Query.equal("emailId", Constants.CURRENT_USER_EMAIL)
                     )
                 )
 
