@@ -38,8 +38,8 @@ class NotesFragment : Fragment() {
     ): View? {
         _binding = FragmentNotesBinding.inflate(inflater, container, false)
         adapter = NotesAdapter(::onNoteClicked)
-        val parentActivity = requireActivity() as MainActivity
-        parentActivity.hideBottomNavAndToolBar()
+
+        (requireActivity() as MainActivity).hideBottomNavAndToolBar()
         return binding.root
     }
 

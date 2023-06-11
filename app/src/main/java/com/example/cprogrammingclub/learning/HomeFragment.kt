@@ -25,7 +25,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: ChapterAdapter
-    private var progressStatus: List<ProgressModel>? = null
 
     private lateinit var parentActivity: MainActivity
     private val homeFragmentViewModel by activityViewModels<HomeFragmentViewModel>()
@@ -55,10 +54,11 @@ class HomeFragment : Fragment() {
         homeFragmentViewModel.getAllChapters()
         progressViewModel.getProgress()
 
+        overallProgressObserver()
         progressModelListLiveDataObserver()
         chapterObserver()
 
-        backStackHandling()
+//        backStackHandling()
 
     }
 
@@ -66,6 +66,13 @@ class HomeFragment : Fragment() {
 
         progressViewModel.progressModelListLiveData.observe(viewLifecycleOwner, Observer {
             adapter.progressStatus=it
+
+        })
+    }
+    private fun overallProgressObserver() {
+        progressViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+            binding.progressBarPercent.progress = it
+            binding.progressPercent.text = "$it%"
         })
     }
 

@@ -11,6 +11,7 @@ import android.widget.RadioButton
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.cprogrammingclub.MainActivity
 import com.example.cprogrammingclub.R
 import com.example.cprogrammingclub.databinding.FragmentQuizBinding
 import com.example.cprogrammingclub.progressbar.ProgressViewModel
@@ -42,6 +43,7 @@ class QuizFragment : Fragment() {
     ): View? {
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
 
+        (requireActivity() as MainActivity).hideBottomNavAndToolBar()
         return binding.root
     }
 
@@ -158,6 +160,6 @@ class QuizFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-
+        (requireActivity() as MainActivity).showBottomNavAndToolBar()
     }
 }

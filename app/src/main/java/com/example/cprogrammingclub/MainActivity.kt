@@ -30,23 +30,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var progressViewModel: ProgressViewModel
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        progressViewModel = ViewModelProvider(this)[ProgressViewModel::class.java]
-        progressViewModel.initializeProgress()//Check Point
-        progressViewModel.getProgress()//Check Point
-        progressObserver()
-        progressModelListLiveDataObserver()//Delete
-
-
-        // Handle bottom navigation item clicks
         binding.bottomNav.setOnItemSelectedListener { MenuItem ->
 
             when (MenuItem.itemId) {
@@ -77,20 +65,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun progressObserver() {
-        progressViewModel.progressLiveData.observe(this, Observer {
-            binding.progressBarPercent.progress = it
-            binding.progressPercent.text = "$it%"
-        })
-    }
-
-    private fun progressModelListLiveDataObserver() {
-        progressViewModel.progressModelListLiveData.observe(this, Observer {
-            val s = it.toString()
-            Log.d("progressModelListLiveDataObserver()````````", s)
-        })
-    }
-
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
@@ -99,12 +73,10 @@ class MainActivity : AppCompatActivity() {
 
     fun hideBottomNavAndToolBar() {
         binding.bottomNav.visibility = View.GONE
-        binding.toolbar.visibility = View.GONE
     }
 
     fun showBottomNavAndToolBar() {
         binding.bottomNav.visibility = View.VISIBLE
-        binding.toolbar.visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {

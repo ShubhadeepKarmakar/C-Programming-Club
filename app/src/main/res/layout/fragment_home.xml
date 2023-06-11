@@ -6,6 +6,79 @@
     android:layout_height="match_parent"
     tools:context=".learning.HomeFragment">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/clubHeading"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        app:cardElevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sf_pro_display_bold"
+                    android:gravity="center"
+                    android:text="C Programming Club"
+                    android:textColor="@color/app_color"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/sf_pro_display_light"
+                    android:text="Start your programming journy"
+                    android:textColor="@color/app_color"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="20dp">
+
+                <TextView
+                    android:id="@+id/progressPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:elevation="5dp"
+                    android:textStyle="bold"
+                    android:text="0%"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarPercent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:elevation="1dp"
+                    android:indeterminateOnly="false"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/prgressbar_bg"
+                    tools:progress="55" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chapterList"
         android:layout_width="0dp"
@@ -14,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clubHeading"
         tools:listitem="@layout/chapter_item" />
 
     <ProgressBar

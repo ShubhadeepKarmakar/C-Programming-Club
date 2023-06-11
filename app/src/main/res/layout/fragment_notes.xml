@@ -10,15 +10,15 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:textColor="@color/black"
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="24dp"
+        android:gravity="center"
         android:fontFamily="@font/sf_pro_display_bold"
-        android:text="Notes"
+        android:text="Study Notes"
         android:textSize="28sp"
+        android:textColor="@color/app_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,8 @@
         android:id="@+id/notesList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

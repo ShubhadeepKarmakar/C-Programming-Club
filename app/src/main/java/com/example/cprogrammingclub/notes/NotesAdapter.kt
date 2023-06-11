@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cprogrammingclub.R
 import com.example.usertodatabase.models.NoteResponseModel
-private val itemColors = arrayOf("#FF0000", "#00FF00", "#0000FF")
+
 
 class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
     ListAdapter<NoteResponseModel, NotesAdapter.NotesViewHolder>(Diffutil()) {
@@ -24,8 +24,17 @@ class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-        val color = itemColors[position % itemColors.size]//For multiple item background
-        holder.itemView.setBackgroundColor(Color.parseColor(color))
+
+        val backgroundIndex = position % 5
+
+        when (backgroundIndex) {
+            0 -> holder.itemView.setBackgroundResource(R.drawable.note_background1)
+            1 -> holder.itemView.setBackgroundResource(R.drawable.note_background2)
+            2 -> holder.itemView.setBackgroundResource(R.drawable.note_background3)
+            3 -> holder.itemView.setBackgroundResource(R.drawable.note_background4)
+            4 -> holder.itemView.setBackgroundResource(R.drawable.note_background5)
+        }
+
         holder.itemView.setOnClickListener {
             onNoteClicked(item)
         }
@@ -37,7 +46,6 @@ class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
         fun bind(item: NoteResponseModel) {
             title.text = item.title
             desc.text = item.description
-
         }
     }
 

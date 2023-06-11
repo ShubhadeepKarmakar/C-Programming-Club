@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CrudFragment : Fragment() {
-private var _binding:FragmentCrudBinding?=null
+    private var _binding: FragmentCrudBinding? = null
     private val binding get() = _binding!!
 
     private val noteViewModel by activityViewModels<NotesViewModel>()
@@ -33,8 +33,8 @@ private var _binding:FragmentCrudBinding?=null
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCrudBinding.inflate(inflater, container, false)
-        val parentActivity = requireActivity() as MainActivity
-        parentActivity.hideBottomNavAndToolBar()
+
+        (requireActivity() as MainActivity).hideBottomNavAndToolBar()
         return binding.root
     }
 
@@ -50,7 +50,6 @@ private var _binding:FragmentCrudBinding?=null
             when (it) {
                 is NetworkResult.Success -> {
 
-
                     Log.d("Crud Fragment", "Lala La Lala")
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragmentContainer, NotesFragment())
@@ -62,6 +61,7 @@ private var _binding:FragmentCrudBinding?=null
                 }
                 is NetworkResult.Loading -> {
 
+                    Log.d("Crud Fragment", "Loadinggggggggggggggggggggggggggggg")
                 }
             }
         })
@@ -75,7 +75,8 @@ private var _binding:FragmentCrudBinding?=null
             btnSubmit.setOnClickListener {
                 val title = title.text.toString()
                 val description = description.text.toString()
-                val noteRequestModel = NoteRequestModel(title, description,Constants.CURRENT_USER_EMAIL)
+                val noteRequestModel =
+                    NoteRequestModel(title, description, Constants.CURRENT_USER_EMAIL)
                 if (note == null) {
                     noteViewModel.createNote(noteRequestModel)
                 } else {
@@ -93,15 +94,14 @@ private var _binding:FragmentCrudBinding?=null
                 binding.title.setText(it.title)
                 binding.description.setText(it.description)
             }
-        }
-        else{
+        } else {
             binding.heading.text = resources.getString(R.string.add_note)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        val parentActivity = requireActivity() as MainActivity
-        parentActivity.showBottomNavAndToolBar()
+        (requireActivity() as MainActivity).showBottomNavAndToolBar()
     }
 }
