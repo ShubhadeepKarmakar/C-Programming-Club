@@ -8,7 +8,7 @@ import javax.inject.Inject
 class AppPreference @Inject constructor(@ApplicationContext context: Context) {
 private var sharedPreference=context.getSharedPreferences("login",Context.MODE_PRIVATE)
 
-    fun setSharedPerferences(email:String){
+    fun setSharedPerferences(email: String){
         val editor = sharedPreference.edit()
         editor.putString("flag", email)
         editor.apply()

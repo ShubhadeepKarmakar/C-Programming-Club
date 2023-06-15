@@ -3,36 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/app_color"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="15dp"
+    app:cardElevation="7dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/white"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/chapter_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chapter Name"
+            android:fontFamily="@font/sf_pro_display_semibold"
             android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="?android:attr/listDivider" />
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/app_color" />
 
         <LinearLayout
             android:id="@+id/reading"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -42,8 +40,7 @@
                 android:text="Start Reading"
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:layout_weight="1"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/rProgress"
@@ -59,28 +56,27 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="0.5dp"
             android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/problems"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:gravity="center_vertical"
             android:text="Chapter Wise Problems"
             android:fontFamily="@font/sf_pro_display_semibold"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="0.5dp"
             android:background="?android:attr/listDivider" />
 
         <LinearLayout
             android:id="@+id/quizzes"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -90,8 +86,7 @@
                 android:text="Chapter Wise Quiz"
                 android:fontFamily="@font/sf_pro_display_semibold"
                 android:layout_weight="1"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/qProgress"

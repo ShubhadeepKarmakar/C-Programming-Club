@@ -9,8 +9,10 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.cprogrammingclub.*
+import com.example.cprogrammingclub.authentication.AuthenticationViewModel
 import com.example.cprogrammingclub.databinding.FragmentHomeBinding
 import com.example.cprogrammingclub.learning.problems.ProblemsFragment
 import com.example.cprogrammingclub.learning.quiz.QuizFragment
@@ -26,9 +28,9 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adapter: ChapterAdapter
 
-    private lateinit var parentActivity: MainActivity
     private val homeFragmentViewModel by activityViewModels<HomeFragmentViewModel>()
     private val progressViewModel by activityViewModels<ProgressViewModel>()
+    private val authenticationViewModel by activityViewModels<AuthenticationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -58,17 +60,19 @@ class HomeFragment : Fragment() {
         progressModelListLiveDataObserver()
         chapterObserver()
 
-//        backStackHandling()
+        authenticationViewModel.getUserData()
+        userObserver()
 
     }
 
     private fun progressModelListLiveDataObserver() {
 
         progressViewModel.progressModelListLiveData.observe(viewLifecycleOwner, Observer {
-            adapter.progressStatus=it
+            adapter.progressStatus = it
 
         })
     }
+
     private fun overallProgressObserver() {
         progressViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
             binding.progressBarPercent.progress = it
@@ -76,21 +80,12 @@ class HomeFragment : Fragment() {
         })
     }
 
-    fun backStackHandling() {
-        val fragmentManager =
-            requireActivity().supportFragmentManager // or childFragmentManager if inside a Fragment
-        fragmentManager.addOnBackStackChangedListener {
-            val backStackEntryCount = fragmentManager.backStackEntryCount
-            parentActivity = requireActivity() as MainActivity
-            if (backStackEntryCount > 0) {
-                // Fragment(s) in the back stack
-                parentActivity.hideBottomNavAndToolBar()//to hide the bottomNavigationBar
-            } else {
-                // No fragments in the back stack, i.e., the first fragment
-                parentActivity.showBottomNavAndToolBar()//to show the bottomNavigationBar
-            }
-        }
+    private fun userObserver() {
+        authenticationViewModel.userLiveData.observe(viewLifecycleOwner, Observer {
+            binding.name.text = it.get(0).name
+        })
     }
+
 
     private fun chapterObserver() {
         homeFragmentViewModel.chaptersLiveData.observe(viewLifecycleOwner, Observer {
@@ -98,6 +93,13 @@ class HomeFragment : Fragment() {
             when (it) {
                 is NetworkResult.Success -> {
                     adapter.submitList(it.data)
+
+                    binding.chapterList.addOnScrollListener(object :
+                        RecyclerView.OnScrollListener() {
+                        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                            binding.aboveText.translationY -= dy.toFloat()
+                        }
+                    })
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(activity, it.message.toString(), Toast.LENGTH_SHORT).show()

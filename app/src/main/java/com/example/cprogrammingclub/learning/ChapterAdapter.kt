@@ -33,7 +33,9 @@ class ChapterAdapter(
 
     override fun onBindViewHolder(holder: ChaptersViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, progressStatus!!, requireActivity)
+        if (progressStatus!=null){
+            holder.bind(item, progressStatus!!, requireActivity)
+        }
         holder.itemView.findViewById<TextView>(R.id.problems).setOnClickListener {
             onChapterProblemsClicked(item)
         }
@@ -46,10 +48,7 @@ class ChapterAdapter(
         holder.itemView.setOnClickListener {
             onReadingClicked(item)
         }
-
-
     }
-
 
     class ChaptersViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val chapter = view.findViewById<TextView>(R.id.chapter_name)

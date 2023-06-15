@@ -54,7 +54,6 @@ class CrudFragment : Fragment() {
                     parentFragmentManager.beginTransaction()
                         .replace(R.id.fragmentContainer, NotesFragment())
                         .commit()
-
                 }
                 is NetworkResult.Error -> {
 

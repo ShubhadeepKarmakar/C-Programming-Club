@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
@@ -64,6 +65,10 @@ dependencies {
 
     //markdown viewr
     implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'
+
+    //lottie annimation
+    def lottieVersion = "6.0.1"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     //Dependency Injection
     def hilt_version = "2.44"

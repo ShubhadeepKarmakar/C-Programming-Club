@@ -7,10 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.cprogrammingclub.MainActivity
 import com.example.cprogrammingclub.databinding.FragmentReadingBinding
 import com.example.cprogrammingclub.progressbar.ProgressViewModel
 import com.example.cprogrammingclub.progressbar.model.ProgressModel
@@ -40,6 +43,7 @@ class ReadingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity() as MainActivity).hideBottomNavAndToolBar()
 
         val chapterName = arguments?.getString("chapterName").toString()
 //        binding.chapterName.text = chapterName
@@ -56,13 +60,15 @@ class ReadingFragment : Fragment() {
                     ProgressModel(
                         Constants.CURRENT_USER_EMAIL,
                         chapterName,
-                        cProgress = 15,
+                        cProgress = 3,//hardcoded
                         qProgress = qProgress!!,
                         pId!!
                     )
                 )
             }
         }
+
+
     }
 
     private fun progressModelListLiveDataObserver(chapterName: String) {
@@ -91,6 +97,24 @@ class ReadingFragment : Fragment() {
             when (it) {
                 is NetworkResult.Success -> {
                     binding.markdownView.loadMarkdownFromUrl(it.data?.get(0)!!.cContent)
+                    if (it.data?.get(0)!!.videoId.length > 5) {
+                        binding.webView.visibility = View.VISIBLE
+                        // Enable JavaScript and other web settings
+                        val webSettings: WebSettings = binding.webView.settings
+                        webSettings.javaScriptEnabled = true
+
+                        // Set a WebChromeClient to support video playback
+                        binding.webView.webChromeClient = WebChromeClient()
+
+                        // Load the video using an iframe
+                        val html =
+                            "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/${
+                                it.data?.get(
+                                    0
+                                )!!.videoId
+                            }\" frameborder=\"0\" allowfullscreen></iframe>"
+                        binding.webView.loadData(html, "text/html", "utf-8")
+                    }
                 }
                 is NetworkResult.Error -> {
                     Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
@@ -107,5 +131,8 @@ class ReadingFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+
+        //To show the bottom nav and toolbar when the fragment will destroy
+        (requireActivity() as MainActivity).showBottomNavAndToolBar()
     }
 }

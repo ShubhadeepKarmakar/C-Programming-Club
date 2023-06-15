@@ -24,16 +24,24 @@ import com.example.cprogrammingclub.more.MoreFragment
 import com.example.cprogrammingclub.notes.NotesFragment
 import com.example.cprogrammingclub.profile.ProfileFragment
 import com.example.cprogrammingclub.progressbar.ProgressViewModel
+import com.example.usertodatabase.utils.AppPreference
+import com.example.usertodatabase.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
+    @Inject
+    lateinit var appPreference: AppPreference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // initializing login user email id
+        Constants.CURRENT_USER_EMAIL= appPreference.getSharedPerferences().toString()
+
 
         binding.bottomNav.setOnItemSelectedListener { MenuItem ->
 
@@ -84,8 +92,7 @@ class MainActivity : AppCompatActivity() {
             binding.bottomNav.selectedItemId = R.id.bnav_home
         } else {
             val f = this.supportFragmentManager
-            if (f.backStackEntryCount > 0)
-                        {
+            if (f.backStackEntryCount > 0) {
 //                supportFragmentManager.beginTransaction()
 //                    .replace(R.id.fragmentContainer, HomeFragment()).addToBackStack(null)
 //                    .commit()

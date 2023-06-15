@@ -28,9 +28,9 @@ class ProgressViewModel @Inject constructor(private val databases: Databases) : 
     val progressModelListLiveData get() = _progressModelListLiveData
 
 
-    fun initializeProgress() {
+    fun initializeProgress(emailId:String) {
         for (i in chapterList) {
-            val progressModel = ProgressModel(Constants.CURRENT_USER_EMAIL, i, 0, 0, ID.unique())
+            val progressModel = ProgressModel(emailId, i, 0, 0, ID.unique())
             createProgress(progressModel)
         }
     }

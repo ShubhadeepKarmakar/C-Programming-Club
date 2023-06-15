@@ -2,7 +2,7 @@ package com.example.cprogrammingclub.learning.reading
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.cprogrammingclub.learning.reading.model.ChapterContentModel
+import com.example.cprogrammingclub.learning.ChapterContentModel
 import com.example.cprogrammingclub.utils.NetworkResult
 import com.example.usertodatabase.utils.Constants
 import io.appwrite.Query
@@ -29,7 +29,9 @@ class ReadingRepository @Inject constructor(private val databases: Databases) {
             val content: List<ChapterContentModel> = response.documents.map {
                 ChapterContentModel(
                     cName = it.data["cName"] as String,
-                    cContent = it.data["cContent"] as String
+                    cContent = it.data["cContent"] as String,
+                    videoId = it.data["videoId"] as String,
+                    cProblems = it.data["cProblems"] as String
                 )
             }
             _chapterContentLiveData.postValue(NetworkResult.Success(content))

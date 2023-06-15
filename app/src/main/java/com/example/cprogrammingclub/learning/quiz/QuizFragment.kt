@@ -113,7 +113,7 @@ class QuizFragment : Fragment() {
                             Constants.CURRENT_USER_EMAIL,
                             chapterName,
                             cProgress = cProgress,
-                            qProgress = 5,
+                            qProgress = 2,//hardcoded
                             pId!!
                         )
                     )

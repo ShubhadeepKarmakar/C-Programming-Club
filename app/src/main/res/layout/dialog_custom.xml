@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:gravity="center"
+        android:text="Forget Password"
+        android:textColor="@color/app_color"
+        android:textSize="28sp"
+        android:fontFamily="@font/sf_pro_display_bold"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:textColor="@color/black"
+        android:text="@string/www_cprogrammingclub_com" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dialogTextInputEditText"
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:counterEnabled="false"
+        app:startIconDrawable="@drawable/ic_email">
+    <EditText
+        android:id="@+id/dialogEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email Id"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/dialogResponseMessage"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:text=""
+        android:fontFamily="@font/sf_pro_display_semibold"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="*A password reset link will be sent to this email."
+        android:textColor="#888888"
+        android:textSize="12sp" />
+
+    <ProgressBar
+        android:id="@+id/dialogProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+    <Button
+        android:id="@+id/buttonClose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit" />
+
+
+</LinearLayout>

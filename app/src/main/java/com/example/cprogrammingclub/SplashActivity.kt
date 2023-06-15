@@ -23,14 +23,14 @@ class SplashActivity : AppCompatActivity() {
 
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            if (appPreference.getSharedPerferences() == null) {
+            if (appPreference.getSharedPerferences() == null||appPreference.getSharedPerferences() == "") {
                 intent = Intent(this, LoginActivity::class.java)
             } else {
                 intent = Intent(this, MainActivity::class.java)
             }
             startActivity(intent)
             finish()
-        }, 0)
+        }, 2500)
 
 
 

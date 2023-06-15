@@ -15,6 +15,7 @@ import io.appwrite.Client
 import io.appwrite.ID
 import io.appwrite.Query
 import io.appwrite.services.Databases
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 
@@ -37,6 +38,8 @@ class NotesRepository @Inject constructor(private val databases: Databases) {
                 data = Gson().toJson(noteRequestModel)
             )
             _statusLiveData.postValue(NetworkResult.Success("Note Created"))
+            delay(1000)
+            _statusLiveData.postValue(NetworkResult.Loading())
 
             Log.d(ContentValues.TAG, "Note Created...............")
         } catch (e: Exception) {
@@ -85,6 +88,8 @@ class NotesRepository @Inject constructor(private val databases: Databases) {
                 data = noteRequestModel
             )
             _statusLiveData.postValue(NetworkResult.Success("Note Updated"))
+            delay(1000)
+            _statusLiveData.postValue(NetworkResult.Loading())
 
         } catch (e: Exception) {
             Log.e("Appwrite", "Error: " + e.message)

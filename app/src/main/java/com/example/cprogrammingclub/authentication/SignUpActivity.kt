@@ -1,19 +1,20 @@
 package com.example.cprogrammingclub.authentication
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
-import android.util.Log
-import android.util.Patterns
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.cprogrammingclub.R
 import com.example.cprogrammingclub.databinding.ActivitySignUpBinding
+import com.example.cprogrammingclub.progressbar.ProgressViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
@@ -54,15 +55,36 @@ class SignUpActivity : AppCompatActivity() {
                 binding.btnPrivacy.error = "Please accept the Privacy Policy to proceed."
             } else {
                 val name = "$firstName $lastName"
-                authenticationViewModel.signUP(name, email, password)
-                startActivity(lIntent)
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    val flag = authenticationViewModel.signUP(name, email, password)
+                    if (flag) {
+                        authenticationViewModel.setUserData(email, name)
+                        runOnUiThread {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+                        delay(1000)
+                        runOnUiThread {
+                            binding.progressBar.visibility = View.GONE
+                        }
+                        startActivity(lIntent)
+                        finish()
+                    }
+                }
+
             }
+
         }
 
         binding.btnLogin.setOnClickListener {
             startActivity(lIntent)
         }
-
+        binding.btnPrivacy.setOnClickListener {
+            val url = "https://www.privacypolicies.com/live/a0dd363e-2639-46ad-8bbd-982c810a4841"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
     }
 
     private fun isEmailValid(email: String): Boolean {

@@ -11,9 +11,15 @@ import javax.inject.Inject
 class ClubFragmentViewModel @Inject constructor(private val clubFragmentRepository: ClubFragmentRepository) :
     ViewModel() {
 
-
     val messagesLiveData get() = clubFragmentRepository.messagesLiveData
+    val subscriptionLiveData get() = clubFragmentRepository.subscriptionLiveData
 
+fun subscribe(){
+     clubFragmentRepository.subscribe()
+}
+fun unSubscribe(){
+     clubFragmentRepository.unSubscribe()
+}
     fun createMessage(messageRequestModel: MessageRequestModel) {
         viewModelScope.launch {
             clubFragmentRepository.createMessage(messageRequestModel)
@@ -23,6 +29,11 @@ class ClubFragmentViewModel @Inject constructor(private val clubFragmentReposito
     fun getMessages() {
         viewModelScope.launch {
             clubFragmentRepository.getMessages()
+        }
+    }
+    fun deleteMessage(messageId:String){
+        viewModelScope.launch {
+            clubFragmentRepository.deleteMessage(messageId)
         }
     }
 }

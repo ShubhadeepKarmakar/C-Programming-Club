@@ -13,7 +13,7 @@ import com.example.whatsapp.chat.MessageResponseModel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ClubAdapter() :
+class ClubAdapter(private val onLongPress: (MessageResponseModel) -> Unit) :
     ListAdapter<MessageResponseModel, RecyclerView.ViewHolder>(Diffutil()) {
 
 
@@ -28,7 +28,8 @@ class ClubAdapter() :
         val chatterName = itemView.findViewById<TextView>(R.id.chatterName)
 
         fun bind(messageResponseModel: MessageResponseModel) {
-//            chatterName.text=messageResponseModel.fName
+
+            chatterName.text="${messageResponseModel.emailId.substring(0, 4)}..."
             receivedChat.text = messageResponseModel.message
             receivedTime.text = convertToIST(messageResponseModel.timeStamp)
         }
@@ -106,6 +107,11 @@ class ClubAdapter() :
             is ReceiverViewHolder -> {
                 holder.bind(messageResponseModel)
             }
+        }
+
+        holder.itemView.setOnLongClickListener {
+            onLongPress(getItem(position))
+            true
         }
     }
 

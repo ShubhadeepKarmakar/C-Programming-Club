@@ -5,23 +5,35 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".learning.quiz.QuizFragment">
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="25dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/chapterName"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_marginBottom="10dp"
         android:textSize="32sp"
-        android:textStyle="bold"
+        android:fontFamily="@font/sf_pro_display_bold"
         android:textColor="@color/app_color"
-        android:gravity="center"
-        android:text="Chapter Name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
+        android:text="Chapter Name"/>
+<androidx.cardview.widget.CardView
+    android:id="@+id/quiz_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="10dp"
+    android:layout_margin="20dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="#E9EEFF"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/questionNumber"
         android:layout_width="wrap_content"
@@ -30,41 +42,28 @@
         android:text="Question  /  "
         android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chapterName" />
-
-    <ImageView
-        android:id="@+id/dashedLine"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/dashed_line"
-        app:layout_constraintTop_toBottomOf="@id/questionNumber"
-        android:layerType="software" />
+        android:textColor="@color/black"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/app_color" />
 
     <TextView
         android:id="@+id/question"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
         android:layout_marginTop="16dp"
         tools:text="Question"
         android:textColor="@color/black"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rbOptionsGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dashedLine" />
+        android:textSize="20sp"
+        android:fontFamily="@font/sf_pro_display_semibold"/>
 
     <RadioGroup
         android:id="@+id/rbOptionsGroup"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnNext"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_marginBottom="24dp">
 
         <RadioButton
             android:id="@+id/option1"
@@ -102,12 +101,11 @@
         style="@style/buttonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
         android:fontFamily="@font/sf_pro_display_bold"
-        android:text="Next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-
+        android:text="Next"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+    </LinearLayout>
 </FrameLayout>

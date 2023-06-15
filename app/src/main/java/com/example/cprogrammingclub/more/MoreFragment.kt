@@ -21,6 +21,12 @@ class MoreFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.markdownView.loadMarkdownFromAsset("c_interview_questions.md")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
