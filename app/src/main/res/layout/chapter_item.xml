@@ -1,57 +1,102 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/purple_200"
-    android:orientation="vertical"
-    android:padding="16dp">
+    app:cardCornerRadius="15dp"
+    app:cardElevation="7dp">
 
-    <TextView
-        android:id="@+id/chapter_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chapter Name"
-        android:textColor="#000"
-        android:textSize="25sp"
-        android:textStyle="bold"/>
+        android:orientation="vertical"
+        android:padding="12dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="?android:attr/listDivider" />
-    <TextView
-        android:id="@+id/reading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start Reading"
-        android:textColor="#000"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/chapter_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chapter Name"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="?android:attr/listDivider" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/app_color" />
 
-    <TextView
-        android:id="@+id/problems"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Chapter Wise Preblems"
-        android:textColor="#000"
-        android:textSize="13sp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="?android:attr/listDivider" />
+        <LinearLayout
+            android:id="@+id/reading"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/quizzes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Chapter Wise Quiz"
-        android:textColor="#000"
-        android:textSize="13sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start Reading"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:layout_weight="1"
+                android:textSize="15sp" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/rProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inprogress..."
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="#FF8C00"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/problems"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:text="Chapter Wise Problems"
+            android:fontFamily="@font/sf_pro_display_semibold"
+            android:textSize="15sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:id="@+id/quizzes"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chapter Wise Quiz"
+                android:fontFamily="@font/sf_pro_display_semibold"
+                android:layout_weight="1"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/qProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inprogress..."
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="#FF8C00"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

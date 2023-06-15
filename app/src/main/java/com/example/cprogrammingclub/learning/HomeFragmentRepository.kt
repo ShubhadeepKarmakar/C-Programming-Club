@@ -20,16 +20,10 @@ class HomeFragmentRepository @Inject constructor(private val databases: Database
             val response = databases.listDocuments(
                 databaseId = Constants.DATABASE_ID,
                 collectionId = Constants.CHAPTERS_COLLECTION_ID,
-//                queries = listOf(Query.equal("EMAILID",AppPreference(context).getSharedPerferences()!!))
             )
             val notes: List<ChapterModel> = response.documents.map {
                 ChapterModel(
-                    chapterName = it.data["chapterName"] as String,
-                    chapterKey = it.data["chapterKey"] as String,
-                    problemKey = it.data["problemKey"] as String,
-                    quizKey = it.data["quizKey"] as String
-
-
+                    chapterName = it.data["chapterName"] as String
                 )
             }
             _chaptersLiveData.postValue(NetworkResult.Success(notes))

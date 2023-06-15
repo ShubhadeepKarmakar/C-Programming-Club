@@ -21,9 +21,15 @@ object AppModule {
     @Provides
     @Singleton
     fun createDatabase(@ApplicationContext appContext: Context): Databases = Databases(
+        createClient(appContext)
+    )
+
+    @Provides
+    @Singleton
+    fun createClient(@ApplicationContext appContext: Context): Client =
         Client(appContext)
             .setEndpoint(Constants.ENDPOINT)
             .setProject(Constants.PROJECT_ID)
-            .setSelfSigned(true))
+
 
 }

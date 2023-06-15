@@ -8,53 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/dark_green"
-            android:elevation="4dp"
-            app:title="C Programming Club"
-            app:titleTextColor="@color/white"
-            app:subtitle="Start your programming journy"
-            app:subtitleTextColor="#B8B8B8"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            android:titleTextColor="@color/dark_green"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-            <FrameLayout
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="25dp">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:elevation="5dp"
-                    android:textStyle="bold"
-                    android:text="0%"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-
-                <ProgressBar
-                    android:id="@+id/progressBar2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:elevation="1dp"
-                    android:indeterminateOnly="false"
-                    android:progress="25"
-                    android:progressDrawable="@drawable/prgressbar_bg"
-                    tools:progress="55" />
-            </FrameLayout>
-
-        </androidx.appcompat.widget.Toolbar>
 
 
         <FrameLayout
@@ -64,7 +17,7 @@
             app:layout_constraintBottom_toTopOf="@id/bottomNav"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintTop_toTopOf="parent">
 
         </FrameLayout>
 

@@ -16,19 +16,15 @@ class NotesViewModel @Inject constructor(private val notesRepository: NotesRepos
     val notesLiveData get() = notesRepository.notesLiveData
     val statusLiveData get() = notesRepository.statusLiveData
 
-
-//fun createClient(context: Context){
-//    notesRepository.createClient(context)
-//}
     fun createNote(noteRequestModel: NoteRequestModel) {
         viewModelScope.launch {
             notesRepository.createNote(noteRequestModel)
         }
     }
 
-    fun getAllNotes(context: Context) {
+    fun getAllNotes() {
         viewModelScope.launch {
-            notesRepository.getNotes(context)
+            notesRepository.getNotes()
         }
     }
 

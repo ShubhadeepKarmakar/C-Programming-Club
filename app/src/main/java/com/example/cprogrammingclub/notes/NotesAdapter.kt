@@ -1,5 +1,6 @@
 package com.example.usertodatabase.ui.notes
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cprogrammingclub.R
 import com.example.usertodatabase.models.NoteResponseModel
+
 
 class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
     ListAdapter<NoteResponseModel, NotesAdapter.NotesViewHolder>(Diffutil()) {
@@ -22,6 +24,17 @@ class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
+
+        val backgroundIndex = position % 5
+
+        when (backgroundIndex) {
+            0 -> holder.itemView.setBackgroundResource(R.drawable.note_background1)
+            1 -> holder.itemView.setBackgroundResource(R.drawable.note_background2)
+            2 -> holder.itemView.setBackgroundResource(R.drawable.note_background3)
+            3 -> holder.itemView.setBackgroundResource(R.drawable.note_background4)
+            4 -> holder.itemView.setBackgroundResource(R.drawable.note_background5)
+        }
+
         holder.itemView.setOnClickListener {
             onNoteClicked(item)
         }
@@ -31,9 +44,8 @@ class NotesAdapter(private val onNoteClicked: (NoteResponseModel) -> Unit) :
         val title = view.findViewById<TextView>(R.id.title)
         val desc = view.findViewById<TextView>(R.id.desc)
         fun bind(item: NoteResponseModel) {
-            title.text = item.TITLE
-            desc.text = item.DESCRIPTION
-
+            title.text = item.title
+            desc.text = item.description
         }
     }
 

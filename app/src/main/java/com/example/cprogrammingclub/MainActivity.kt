@@ -10,56 +10,66 @@ This activity is used as a fragment container(Home Fragment, Compiler Fragment, 
 
 package com.example.cprogrammingclub
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.cprogrammingclub.club.ClubFragment
-import com.example.cprogrammingclub.compiler.CompilerFragment
 import com.example.cprogrammingclub.databinding.ActivityMainBinding
 import com.example.cprogrammingclub.learning.HomeFragment
-import com.example.cprogrammingclub.notes.NotesActivity
-import com.google.android.material.navigation.NavigationView
+import com.example.cprogrammingclub.more.MoreFragment
+import com.example.cprogrammingclub.notes.NotesFragment
+import com.example.cprogrammingclub.profile.ProfileFragment
+import com.example.cprogrammingclub.progressbar.ProgressViewModel
+import com.example.usertodatabase.utils.AppPreference
+import com.example.usertodatabase.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
+    @Inject
+    lateinit var appPreference: AppPreference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Handle bottom navigation item clicks
+        // initializing login user email id
+        Constants.CURRENT_USER_EMAIL= appPreference.getSharedPerferences().toString()
+
+
         binding.bottomNav.setOnItemSelectedListener { MenuItem ->
 
             when (MenuItem.itemId) {
                 R.id.bnav_home -> {
                     replaceFragment(HomeFragment())
-                    true
+                }
+                R.id.bnav_more -> {
+                    replaceFragment(MoreFragment())
                 }
                 R.id.bnav_make_notes -> {
-                    intent= Intent(this,NotesActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.bnav_compiler -> {
-                    replaceFragment(CompilerFragment())
-                    true
+                    replaceFragment(NotesFragment())
                 }
                 R.id.bnav_club -> {
                     replaceFragment(ClubFragment())
-                    true
                 }
-                // Add more bottom navigation items if needed
-//                else -> false
+                R.id.bnav_profile -> {
+                    supportFragmentManager.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_from_left)
+                        .replace(R.id.fragmentContainer, ProfileFragment())
+                        .commit()
+                }
             }
             true
         }
         // Set the home fragment as the default fragment
         replaceFragment(HomeFragment())
+
 
     }
 
@@ -67,5 +77,31 @@ class MainActivity : AppCompatActivity(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .commit()
+    }
+
+    fun hideBottomNavAndToolBar() {
+        binding.bottomNav.visibility = View.GONE
+    }
+
+    fun showBottomNavAndToolBar() {
+        binding.bottomNav.visibility = View.VISIBLE
+    }
+
+    override fun onBackPressed() {
+        if (binding.bottomNav.selectedItemId != R.id.bnav_home) {
+            binding.bottomNav.selectedItemId = R.id.bnav_home
+        } else {
+            val f = this.supportFragmentManager
+            if (f.backStackEntryCount > 0) {
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.fragmentContainer, HomeFragment()).addToBackStack(null)
+//                    .commit()
+
+                f.popBackStack()
+            } else {
+
+                finish()
+            }
+        }
     }
 }

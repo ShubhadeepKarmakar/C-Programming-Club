@@ -1,15 +1,20 @@
 package com.example.usertodatabase.utils
 
+import android.content.Context
+
 object Constants {
     val ENDPOINT = "https://cloud.appwrite.io/v1"
-    val PROJECT_ID = "6471de03ca574fbc5c8d"
-    val DATABASE_ID = "6471de17436cef3e65cd"
-    val USER_COLLECTION_ID = "646acb713dd758f93951"
-    val NOTES_COLLECTION_ID = "646dee91f37b91baebfa"
+    val PROJECT_ID = "6480d5e4b16c22b75853"
+    val DATABASE_ID = "6486d4802529f871a0d1"
+    val USER_COLLECTION_ID = "64890171932784e67b0f"
+    val NOTES_COLLECTION_ID = "6486d48f960cce000a05"
+    val PROGRESS_COLLECTION_ID = "6486d65288072958866c"
+    val GROUP_CHAT_COLLECTION_ID = "6486d59f5f7453305122"
+    val CHAPTER_CONTENT="6486d86075555109d8fa"
 
-    val CHAPTERS_COLLECTION_ID = "6471de9ccdf702b6d41a"
-    val QUIZS_COLLECTION_ID = "6471f79d07ce3e6c04f9"
+    val CHAPTERS_COLLECTION_ID = "6486d8f86e93082224a8"
+    val QUIZS_COLLECTION_ID = "6486da06a7a649d1e0a4"
 
-
-    lateinit var EMAILID:String
+    var CURRENT_USER_EMAIL= ""
 }
+

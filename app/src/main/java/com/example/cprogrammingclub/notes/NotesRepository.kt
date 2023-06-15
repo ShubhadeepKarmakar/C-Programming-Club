@@ -15,28 +15,17 @@ import io.appwrite.Client
 import io.appwrite.ID
 import io.appwrite.Query
 import io.appwrite.services.Databases
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 
 class NotesRepository @Inject constructor(private val databases: Databases) {
 
-
     private val _notesLiveData = MutableLiveData<NetworkResult<List<NoteResponseModel>>>()
     val notesLiveData get() = _notesLiveData
 
-    private val _statusLiveData = MutableLiveData<NetworkResult<Pair<Boolean, String>>>()
+    private val _statusLiveData = MutableLiveData<NetworkResult<String>>()
     val statusLiveData get() = _statusLiveData
-
-//    private lateinit var databases: Databases
-//    fun createClient(context: Context) {
-//        client = Client(context)
-//            .setEndpoint(Constants.ENDPOINT)
-//            .setProject(Constants.PROJECT_ID)
-//            .setSelfSigned(true)
-
-//        databases = Databases(client)
-//    }
-
 
     suspend fun createNote(noteRequestModel: NoteRequestModel) {
         _statusLiveData.postValue(NetworkResult.Loading())
@@ -47,20 +36,20 @@ class NotesRepository @Inject constructor(private val databases: Databases) {
                 collectionId = Constants.NOTES_COLLECTION_ID,
                 documentId = ID.unique(),
                 data = Gson().toJson(noteRequestModel)
-
             )
-            _statusLiveData.postValue(NetworkResult.Success(Pair(true, "Note Created")))
+            _statusLiveData.postValue(NetworkResult.Success("Note Created"))
+            delay(1000)
+            _statusLiveData.postValue(NetworkResult.Loading())
 
             Log.d(ContentValues.TAG, "Note Created...............")
         } catch (e: Exception) {
             Log.e("Appwrite", "Error: " + e.message)
-            _statusLiveData.postValue(NetworkResult.Success(Pair(false, e.message!!)))
+            _statusLiveData.postValue(NetworkResult.Error( e.message!!))
         }
-
-        Log.d(ContentValues.TAG, "Account Created")
+        Log.d(ContentValues.TAG, "Note Created")
     }
 
-    suspend fun getNotes(context: Context) {
+    suspend fun getNotes() {
         _notesLiveData.postValue(NetworkResult.Loading())
         try {
             val response = databases.listDocuments(
@@ -68,18 +57,17 @@ class NotesRepository @Inject constructor(private val databases: Databases) {
                 collectionId = Constants.NOTES_COLLECTION_ID,
                 queries = listOf(
                     Query.equal(
-                        "EMAILID",
-                        AppPreference(context).getSharedPerferences()!!
+                        "emailId",
+                       Constants.CURRENT_USER_EMAIL
                     )
                 )
             )
             val notes: List<NoteResponseModel> = response.documents.map {
                 NoteResponseModel(
-                    TITLE = it.data["TITLE"] as String,
-                    DESCRIPTION = it.data["DESCRIPTION"] as String,
-                    EMAILID = it.data["EMAILID"] as String,
+                    title = it.data["title"] as String,
+                    description = it.data["description"] as String,
+                    emailId = it.data["emailId"] as String,
                     noteId = it.data["\$id"] as String
-
                 )
             }
             _notesLiveData.postValue(NetworkResult.Success(notes))
@@ -99,11 +87,13 @@ class NotesRepository @Inject constructor(private val databases: Databases) {
                 documentId = noteId,
                 data = noteRequestModel
             )
-            _statusLiveData.postValue(NetworkResult.Success(Pair(true, "Note Updated")))
+            _statusLiveData.postValue(NetworkResult.Success("Note Updated"))
+            delay(1000)
+            _statusLiveData.postValue(NetworkResult.Loading())
 
         } catch (e: Exception) {
             Log.e("Appwrite", "Error: " + e.message)
-            _statusLiveData.postValue(NetworkResult.Success(Pair(false, e.message!!)))
+            _statusLiveData.postValue(NetworkResult.Error(e.message!!))
         }
     }
 
@@ -115,11 +105,11 @@ class NotesRepository @Inject constructor(private val databases: Databases) {
                 collectionId = Constants.NOTES_COLLECTION_ID,
                 documentId = noteId
             )
-            _statusLiveData.postValue(NetworkResult.Success(Pair(true, "Note Deleted")))
+            _statusLiveData.postValue(NetworkResult.Success("Note Deleted"))
 
         } catch (e: Exception) {
             Log.e("Appwrite", "Error: " + e.message)
-            _statusLiveData.postValue(NetworkResult.Success(Pair(false, e.message!!)))
+            _statusLiveData.postValue(NetworkResult.Error(e.message!!))
         }
 
     }
