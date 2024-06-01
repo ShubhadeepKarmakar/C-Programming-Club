@@ -53,7 +53,7 @@ Once your progress is 100%, you will be eligible to claim your certificate.
     - Realtime
       - This feature is used in the community section of the app to make real-time changes, when a user sends a message, all users will receive the update simultaneously. 
     - Storage 
-     - To store markdown files and some images.
+      - To store markdown files and some images.
 
 ## Challenges I Faced
 - Implementing Authentication 
